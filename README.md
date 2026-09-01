@@ -14,3 +14,9 @@
 4. La URI identifica el recurso, por ejemplo el ID. El JSON transporta los datos del recurso, como nombre, presentación, categoría y disponibilidad.
 
 5. 200 OK = consulta correcta; 201 Created = creación; 404 Not Found = recurso inexistente.
+
+-@SpringBootApplication configura e inicia la app
+
+-SpringApplication.run crea el contexto de Spring y levanta el server
+
+-Spring Web incorpora Jackson para transformar objs Java a JSON y JSON a objs Java
