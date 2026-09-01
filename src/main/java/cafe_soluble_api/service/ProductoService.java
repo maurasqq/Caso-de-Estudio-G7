@@ -3,8 +3,12 @@ package cafe_soluble_api.service;
 //public class ProductoService {
 //}
 
+import cafe_soluble_api.model.Producto;
 import cafe_soluble_api.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductoService{
@@ -16,24 +20,24 @@ public class ProductoService{
     }
 
     // Consultar id existente, id inexistente,
-    public List<Student> findAll() {
-        return studentRepository.findAll();
+    public List<Producto> findAll() {
+        return productoRepository.findAll();
     }
 
-    public Optional<Student> findById(Long id) {
-        return studentRepository.findById(id);
+    public Optional<Producto> findById(Long id) {
+        return productoRepository.findById(id);
     }
 
-    public Student save(Student student) {
-        return studentRepository.save(student);
+    public Producto save(Producto student) {
+        return productoRepository.save(student);
     }
 
-    public Student update(Long id, Student student) {
+    public Producto update(Long id, Producto student) {
         student.setId(id);
-        return studentRepository.save(student);
+        return productoRepository.save(student);
     }
 
     public void deleteById(Long id) {
-        studentRepository.deleteById(id);
+        productoRepository.deleteById(id);
     }
 }
