@@ -1,48 +1,37 @@
 package cafe_soluble_api.controller;
 
 import cafe_soluble_api.model.Producto;
-import cafe_soluble_api.service.ProductoService;
+import cafe_soluble_api.repository.ProductoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//public class ProductooController {
-//}
 @RestController
 @RequestMapping("/api/productos")
-public class ProductoController  {
+public class ProductoController {
 
-    private final ProductoService productoService;
+    private final ProductoRepository productoRepository;
 
-    public ProductoController(ProductoService productoService) {
-        this.productoService = productoService;
+    public ProductoController(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
     }
 
     @GetMapping
-    public List<Producto> getAll() {
-        return productoService.findAll();
+    public ResponseEntity<List<Producto>> obtenerTodos() {
+        return ResponseEntity.ok(productoRepository.findAll());
     }
-
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> getById(@PathVariable Long id) {
-        return productoService.findById(id)
+    public ResponseEntity<Producto> obtenerPorId(@PathVariable Long id) {
+        return productoRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Producto create(@RequestBody Producto student) {
-        return productoService.save(student);
-    }
-
-    @PutMapping("/{id}")
-    public Producto update(@PathVariable Long id, @RequestBody Producto producto) {
-        return productoService.update(id, producto);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        productoService.deleteById(id);
+    public ResponseEntity<Producto> registrar(@RequestBody Producto producto) {
+        Producto creado = productoRepository.save(producto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 }
